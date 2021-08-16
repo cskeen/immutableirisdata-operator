@@ -1,0 +1,14 @@
+apiVersion: kudo.dev/v1beta1
+parameters:
+  - name: replicas
+    description: Number of replicas that should be run as part of the deployment. This probably needs a load balancer...
+    default: "2"
+  - name: REDIS_HOST
+    description: Hostname for the Redis server
+    default: redis-service
+  - name: REDIS_PORT
+    description: Port for the Redis Server
+    default: "6379"
+  - name: REDIS_PASS
+    description: Password for the Redis Server. In a real deployment this would come from a secrets server.
+    default: mypassword

@@ -1,25 +1,42 @@
 apiVersion: kudo.dev/v1beta1
 name: "immutable-irisdata"
-operatorVersion: "1.0.0"
+operatorVersion: "1.0.19"
 appVersion: "1.0.0"
 kubernetesVersion: 1.13.0
 maintainers:
   - name: Christopher Skeen
     email: skeen.c@gmail.com
-url: https://kudo.dev
+url: https://github.com/cskeen/immutableirisdata-operator
 tasks:
-  - name: app
+  - name: deploy-irisdata
     kind: Apply
     spec:
       resources:
         - deployment.yaml
+        - irisdata-config.yaml
+        - irisdata-service.yaml
+  - name: deploy-redis
+    kind: Apply
+    spec:
+      resources:
+        - redis.yaml
+        - redis-config.yaml
+        - redis-service.yaml
+        - redis-storage.yaml
+        - redis-volume-claim.yaml
 plans:
   deploy:
-    strategy: serial
+    strategy: parallel
     phases:
-      - name: main
-        strategy: parallel
+      - name: install-redis
+        strategy: serial
         steps:
-          - name: everything
+          - name: redis-installation
             tasks:
-              - app
+              - deploy-redis
+      - name: install-irisdata
+        strategy: serial
+        steps:
+          - name: irisdata-installation
+            tasks:
+              - deploy-irisdata

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: irisdata-config
+  namespace: default
+data:
+  REDIS_HOST: {{ .Params.REDIS_HOST }}
+  REDIS_PASS: {{ .Params.REDIS_PASS }}
+  REDIS_PORT: "{{ .Params.REDIS_PORT }}"
