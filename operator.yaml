@@ -1,6 +1,6 @@
 apiVersion: kudo.dev/v1beta1
 name: "immutable-irisdata"
-operatorVersion: "1.0.19"
+operatorVersion: "1.1.0"
 appVersion: "1.0.0"
 kubernetesVersion: 1.13.0
 maintainers:
